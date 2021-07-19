@@ -1,0 +1,15 @@
+.breadcrumb-nav{
+    padding: 2% 0 0 2%;
+}
+.breadcrumb-nav a{
+    color: #000;
+}
+
+ol.float-end{
+    margin: 0 2% 2% 0;
+    list-style: none;
+}
+ol.float-end li{
+    float: left;
+    margin-left: 10px;
+}

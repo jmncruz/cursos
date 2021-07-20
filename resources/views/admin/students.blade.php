@@ -17,34 +17,45 @@
                     </svg>
                 </a>
             </li>
+            <li>
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control" id="search-id" placeholder="Digite o ID" aria-label="Digite o ID" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
+                </div>
+            </li>
         </ol>
     </nav>
-    <table class="table table-light table-borderless table-striped table-hover">
-        <thead class="table-dark">
-            <th>Id</th>
-            <th>Nome</th>
-            <th>Status</th>
-            <th>Imagem</th>
-            <th>Courses</th>
-            <th>Data de criação</th>
-            <th>Data da atualização</th>
-        </thead>
-        <tbody>
-            @foreach($students as $student)
-                <tr>
-                    <td>{{$student->id}}</td>
-                    <td>{{$student->name}}</td>
-                    <td>{{$student->status}}</td>
-                    <td>{{$student->img_path}}</td>
-                    <td>{{$student->courses}}</td>
-                    <td>{{$student->created_at}}</td>
-                    <td>{{$student->updated_at}}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-    {!! $students->links() !!}
-
+    <div class="content">
+        <table class="table table-light table-borderless table-striped table-hover">
+            <thead class="table-dark">
+                <th>Id</th>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Status</th>
+                <th>Courses</th>
+                <th>Data de criação</th>
+                <th>Data da atualização</th>
+                <th>Ação</th>
+            </thead>
+            <tbody class="empty">
+                @foreach($students as $student)
+                    <tr>
+                        <td>{{$student->id}}</td>
+                        <td><img src="{{asset(str_replace("public", "storage",$student->img_path))}}" alt="img"></td>
+                        <td class="blur" id="name-{{$student->id}}" contenteditable="true">{{$student->name}}</td>
+                        <td class="blur" id="status-{{$student->id}}" contenteditable="true">{{$student->status}}</td>
+                        <td class="blur" id="courses-{{$student->id}}" contenteditable="true">{{$student->courses}}</td>
+                        <td>{{$student->created_at}}</td>
+                        <td>{{$student->updated_at}}</td>
+                        <td>
+                            <a href="#" class="delete" id="id-{{$student->id}}">Excluir</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {!! $students->links() !!}
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -56,15 +67,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input name="name" type="text" placeholder="Nome" /><br/>
-                    <input name="status" type="text" placeholder="Status" /><br/>
-                    <input id="cep" name="cep" type="number" placeholder="Cep" /><br/>
-                    <input id="cursos" name="cursos" type="text" placeholder="Cursos" /><br/>
-                    <input id="bairro" name="bairro" type="text" disabled/><br/>
-                    <input id="cidade" name="cidade" type="text" disabled/><br/>
-                    <input id="estado" name="estado" type="text" disabled/><br/>
-                    <input id="logradouro" name="logradouro" type="text" disabled/><br/>
-                    <input id="numero" name="numero" type="number"/><br/>
+                    <input class="form-control" name="name" type="text" placeholder="Nome" /><br/>
+                    <input class="form-control" name="status" type="text" placeholder="Status" /><br/>
+                    <input class="form-control" id="cep" name="cep" type="number" placeholder="Cep" /><br/>
+                    <input class="form-control" id="cursos" name="cursos" type="text" placeholder="Cursos" /><br/>
+                    <input class="form-control" id="bairro" name="bairro" type="text" disabled/><br/>
+                    <input class="form-control" id="cidade" name="cidade" type="text" disabled/><br/>
+                    <input class="form-control" id="estado" name="estado" type="text" disabled/><br/>
+                    <input class="form-control" id="logradouro" name="logradouro" type="text" disabled/><br/>
+                    <input class="form-control" id="numero" name="numero" type="number"/><br/>
                     <input name="img_path" type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                 </div>
                 <div class="modal-footer">
@@ -99,6 +110,74 @@
             return false;
 
         })
+
+        $('button').click(function(){
+            let id = $('#search-id').val()
+
+            $.ajax({
+                url: '/admin/students/show/'+id,
+                type: 'GET',
+                data: {
+                    value: id,
+                },
+                dataType: 'JSON',
+        
+                success: function(data){
+                    $('.empty').empty()
+                    let photo = data.img_path;
+                    console.log(photo.replace('public', 'storage'))
+                    $('.empty').append('<tr><td>'+data.id+'</td><td><img src="/'+photo.replace('public', 'storage')+'" alt="Photo"/></td><td>'+data.status+'</td><td>'+data.name+'</td><td>'+data.courses+'</td><td>'+data.created_at+'</td><td>'+data.updated_at+'</td><td>Em Breve</td></tr>')
+                    console.log(data)
+                }
+            });
+            return false;
+
+        })
+        $('.delete').click(function(){
+            let split_id = $(this).attr('id').split('-');
+            let fild_id = split_id[1];
+
+            $.ajax({
+                url: '/admin/students/delete',
+                type: 'GET',
+                data: {
+                    id: fild_id
+                },
+                dataType: 'JSON',
+        
+                success: function(data){
+                    console.log(data);
+                    window.location.href = "/admin/students/show";
+                }
+            });
+            return false;
+
+        })
+        $('.blur').blur(function(){
+
+            let split_id = $(this).attr('id').split('-');
+            let fild_name = split_id[0];
+            let fild_id = split_id[1];
+            let value = $(this).text(); 
+
+            $.ajax({
+                url: '/admin/students/update',
+                type: 'GET',
+                data: {
+                    field: fild_name,
+                    value: value,
+                    id: fild_id
+                },
+                dataType: 'JSON',
+
+                success: function(data){
+                    console.log(data);
+                }
+            });
+            return false;
+
+        })
+
     </script>
 @endsection
 

@@ -14,15 +14,12 @@ class CreateStudentsTable extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('students_cep')->unsigned();
+            $table->id();
             $table->string('name');
             $table->string('status');
             $table->string('img_path');
             $table->string('courses');
             $table->timestamps();
-
-            $table->foreign('students_cep')->references('id')->on('addresses')->onDelete('cascade');
         });
     }
 

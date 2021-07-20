@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Students;
+use App\Models\Addresses;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AddressesController;
 
@@ -16,11 +17,11 @@ class StudentsController extends Controller
 
     public function storage(Request $request){
 
+        
         if($request->file('img_path')->isValid()){
+
             $path = $request->file('img_path')->store('public/students');
             
-            $this->address->storage($request->cep,$request->numero);
-
             $this->students->create([
                 'name' => $request->name,
                 'status' => $request->status,
@@ -29,14 +30,10 @@ class StudentsController extends Controller
                 'students_cep' => $request->cep
             ]);
 
+            $this->address->storage($request->cep,$this->students->latest('id')->first()->id,$request->numero);
+
             return redirect('/admin/students/show');
         }
-        
-        dd($request->all());
-
-        
-
-
 
     }
     public function show(){
@@ -45,5 +42,26 @@ class StudentsController extends Controller
 
         return view('admin/students', compact('students'));
 
+    }
+    public function showId($id){
+
+     
+
+        $students = $this->students->where('id',$id)->first();
+
+        return response()->json($students);
+
+    }
+    public function delete(Request $request){
+        
+        $this->students->find($request->id)->delete();
+        return response()->json(['success'=>'Curses Deleted successfully']);
+    }
+    public function update(Request $request){
+
+        $this->students->find($request->id)->update([
+            $request->field => $request->value,
+        ]);
+        return response()->json(['success'=>'Curses Deleted successfully']);
     }
 }

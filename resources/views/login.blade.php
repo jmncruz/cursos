@@ -9,6 +9,7 @@
     </head>
     <body>
         <div class="login-container">
+            <img src="{{asset('assets/img/icon-title.png')}}" alt="Logo"/>
             <form action="/api/auth/login" method="post">
                 @csrf
                 <p>Faça seu login</p>

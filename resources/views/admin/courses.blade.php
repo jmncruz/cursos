@@ -79,8 +79,6 @@
             let split_id = $(this).attr('id').split('-');
             let fild_id = split_id[1];
 
-            $( ".delete" ).hide()
-
             $.ajax({
                 url: '/admin/courses/delete',
                 type: 'GET',

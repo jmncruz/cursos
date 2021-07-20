@@ -12,9 +12,11 @@ class Students extends Model
     protected $fillable = [
         'name',
         'status',
-        'students_cep',
         'img_path',
         'courses',
     ];
+    public function addresses(){
+        return $this->hasOne(Addresses::class, 'students_id');
+    }
 
 }

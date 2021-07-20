@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('layout');
 });
+Route::get('/login', function () {
+    return view('login');
+});
+
 
 //PAGE ADMIN/STUDENTS
 Route::group([
@@ -27,7 +31,10 @@ Route::group([
 ], function () {
 
     Route::get('students/show', 'StudentsController@show');
+    Route::get('students/show/{id}', 'StudentsController@showId');
     Route::post('students/storage', 'StudentsController@storage');
+    Route::get('students/delete', 'StudentsController@delete');
+    Route::get('students/update', 'StudentsController@update');
 
 });
 

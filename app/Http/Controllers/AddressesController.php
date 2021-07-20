@@ -12,10 +12,11 @@ class AddressesController extends Controller
         $this->addresses = new Addresses;
     }
 
-    public function storage($cep,$number){
+    public function storage($cep,$students_id,$number){
 
         $this->addresses->create([
             'cep' => $cep,
+            'students_id' => $students_id,
             'number' => $number
         ]);
     }

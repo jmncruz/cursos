@@ -68,5 +68,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - Laravel 8
 - Mysql
 - tymon/jwt-auth
+
 - composer require tymon/jwt-auth:dev-develop
-# cursos
+
+# comando para criar usuarios 
+php artisan db:seed #senha password

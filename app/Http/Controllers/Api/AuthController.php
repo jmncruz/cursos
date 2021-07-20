@@ -34,18 +34,12 @@ class AuthController extends Controller
         if ($token = auth(guard: 'api')->attempt($credentials)) {
             
 
-            session([
-                'oauth'=>$token,
-                'user'=>$this->me()
-            ]);
-
-            
-            return view('layout');
+            session()->put('oauth','teste');
+            return redirect('/');
 
             
         }
-
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return redirect('/login');
     }
 
     /**

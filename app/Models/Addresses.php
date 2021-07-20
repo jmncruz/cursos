@@ -11,6 +11,7 @@ class Addresses extends Model
 
     protected $fillable = [
         'cep',
+        'students_id',
         'number',
     ];
 }

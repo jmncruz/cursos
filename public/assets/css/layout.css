@@ -44,12 +44,36 @@ section nav.sidebar .nav-swich img {
     position: relative;
     top: -25%;
 }
+section nav.sidebar .bi-chevron-right{
+    display: block;
+}
+section nav.sidebar .bi-chevron-left{
+    display: none;
+}
+section nav.sidebar .bi-gear-wide-connected{
+    display: block;
+}
+section nav.sidebar .bi-cash-coin{
+    display: block;
+}
 section nav.sidebar .nav-swich svg {
     color: rgb(190, 189, 189);
 }
+section nav.sidebar .sidebar-menu{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+section nav.sidebar .sidebar-menu svg {
+    margin-top: 25px;
+    color: #357ae8;
+}
 section nav.sidebar .setups{
     width: 100%;
-    height: 60%;
+    height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,7 +99,9 @@ section .menu{
     width: 20%;
     height: 100%;
     background: #FFF;
+    display: none;
 }
+
 section .menu header{
     height: 8%;
     padding: 5%;
@@ -86,6 +112,7 @@ section .menu ul{
     height: 92%;
     list-style: none;
     font-size: 12px;
+    padding-left: 0;
 }
 section .menu ul a{
     text-decoration: none;
@@ -98,7 +125,7 @@ section .menu ul li{
     border-bottom: 1px solid rgb(241, 241, 241);
     display: flex;
     align-items: center;
-    
+    padding-left: 1rem;
 }
 section .menu ul li span{
     margin-left: 5%;

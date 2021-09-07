@@ -30,16 +30,12 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-
         if ($token = auth(guard: 'api')->attempt($credentials)) {
             
-
-            session()->put('oauth','teste');
-            return redirect('/');
-
-            
+            return $token;
+        
         }
-        return redirect('/login');
+
     }
 
     /**

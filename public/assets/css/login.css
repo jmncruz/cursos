@@ -16,13 +16,28 @@ body{
 body, input, button {
     font-family: Arial, Helvetica, sans-serif;
 }
-.login-container {
+.login-container  {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.login-container p {
+.login-container .item-container {
+    width: 40%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.login-container .item-container .img {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-container .item-container .img img{
+    width: 80%;
+}
+.login-container .item-container p {
     width: 100%;
     margin-top: 10px;
     border:0;
@@ -32,13 +47,13 @@ body, input, button {
     color: #357ae8;
     text-align: center;
 }
-.login-container form{
+.login-container .item-container form{
     width: 100%;
     max-width: 300px;
     display: flex;
     flex-direction: column;
 }
-.login-container form input {
+.login-container .item-container form input {
     margin-top: 20px;
     border: 1px solid;
     border-radius: 4px;
@@ -47,10 +62,10 @@ body, input, button {
     font-size: 16px;
     color: #666;
 }
-.login-container form input::placeholder{
+.login-container .item-container form input::placeholder{
     color: #999;
 }
-.login-container form button{
+.login-container .item-container form button{
     margin-top: 10px;
     border:0;
     border-radius: 4px;
@@ -60,9 +75,4 @@ body, input, button {
     font-weight: bold;
     color: #FFF;
     cursor: pointer;
-}
-.login-container img{
-    width: 25%;
-    margin-bottom: 10px;
-    margin-left: 110px;
 }

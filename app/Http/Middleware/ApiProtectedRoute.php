@@ -18,6 +18,7 @@ class ApiProtectedRoute extends BaseMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+
         
         try {
             $user = JWTAuth::parseToken()->authenticate();
@@ -32,7 +33,7 @@ class ApiProtectedRoute extends BaseMiddleware
                 return response()->json(['status' => 'Token is Expired']);
             }
             else{
-
+                
                 return response()->json(['status' => 'Authorization Token not found']);
                 
             }  

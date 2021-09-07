@@ -39,7 +39,6 @@ class CoursesController extends Controller
 
     }
     public function delete(Request $request){
-
         $this->courses->find($request->id)->delete();
         return response()->json(['success'=>'Curses Deleted successfully']);
     }

@@ -8,8 +8,11 @@
 ol.float-end{
     margin: 0 2% 2% 0;
     list-style: none;
+    display: flex;
+    align-items: center;
 }
 ol.float-end li{
+    height: 2%;
     float: left;
     margin-left: 10px;
 }

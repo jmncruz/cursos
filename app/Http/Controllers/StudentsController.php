@@ -45,8 +45,8 @@ class StudentsController extends Controller
     }
     public function showId($id){
 
-     
-
+        dd($id);
+        
         $students = $this->students->where('id',$id)->first();
 
         return response()->json($students);

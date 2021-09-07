@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,18 +14,41 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('layout');
-});
+
 Route::get('/login', function () {
     return view('login');
+})->name('login');
+
+Route::get('/logout', function () {
+    Session::flush();
+    return redirect()->route('login');
+})->name('logout');
+
+Route::group([
+    'middleware' => 'auth',
+], function () {
+
+    Route::any('/', function () {
+        return view('profile/welcome');
+    });
+
 });
 
+Route::group([
+    //'middleware' => 'auth',
+], function () {
+
+    Route::get('/profile', function () {
+        return view('profile/profile');
+    });
+    
+
+});
 
 //PAGE ADMIN/STUDENTS
 Route::group([
 
-    //'middleware' => 'api',
+    //'middleware' => 'auth',
     'namespace' => 'App\Http\Controllers',
     'prefix' => 'admin'
 
@@ -41,7 +65,7 @@ Route::group([
 //PAGE ADMIN/COURSES
 Route::group([
 
-    //'middleware' => 'api',
+    //'middleware' => 'auth',
     'namespace' => 'App\Http\Controllers',
     'prefix' => 'admin/'
 
@@ -52,6 +76,19 @@ Route::group([
     Route::get('courses/delete', 'CoursesController@delete');
     Route::get('courses/show', 'CoursesController@show');
     Route::post('courses/upload', 'CoursesController@upload');
+    
+});
+
+//PAGE ADMIN/SETUP
+Route::group([
+
+    //'middleware' => 'auth',
+    'namespace' => 'App\Http\Controllers',
+    'prefix' => 'admin/'
+
+], function () {
+
+    Route::get('setup', 'SetupsController@setup');
     
 });
 

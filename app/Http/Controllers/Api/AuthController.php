@@ -28,12 +28,14 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+       
         $credentials = $request->only('email', 'password');
 
+        // return $credentials;
         if ($token = auth(guard: 'api')->attempt($credentials)) {
             
             return $token;
-        
+
         }
 
     }
